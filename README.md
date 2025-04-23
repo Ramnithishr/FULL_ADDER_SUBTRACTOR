@@ -36,7 +36,16 @@ Diff = A ⊕ B ⊕ Bin
 
 Borrow out = A'Bin + A'B + BBin
 
+
+![image](https://github.com/user-attachments/assets/e3510e13-5a92-4410-af27-8dbfd1a887b9)
+
+
 **Truthtable**
+
+
+
+![image](https://github.com/user-attachments/assets/400870df-c886-4a2c-828b-df5293c908a8)
+
 
 **Procedure**
 
@@ -44,12 +53,55 @@ Write the detailed procedure here
 
 **Program:**
 
-/* Program to design a half subtractor and full subtractor circuit and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber:
+/* Program to design a half subtractor and full subtractor circuit and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber: 212224230219
 */
+```
+Full Adder
 
+  module half (A, B, Cin, Sum, Carry); 
+  input A, B, Cin;
+  output Sum, Carry;
+
+  wire AxorB, AB, BCin, ACin;
+
+  xor (AxorB, A, B);           
+  xor (Sum, AxorB, Cin);       
+
+  and (AB, A, B);              
+  and (BCin, B, Cin);          
+  and (ACin, A, Cin);          
+  or (Carry, AB, BCin, ACin);  
+  endmodule
+
+Full Subtractor
+
+ 
+ module full (A, B, Bin, Diff, Borrow);
+ input A, B, Bin;
+ output Diff, Borrow;
+
+ wire AxorB, A_not, A_not_and_B, A_not_and_Bin, B_and_Bin;
+
+ xor (AxorB, A, B);               
+ xor (Diff, AxorB, Bin);          
+
+ not (A_not, A);                
+ and (A_not_and_B, A_not, B);     
+ and (A_not_and_Bin, A_not, Bin); 
+ and (B_and_Bin, B, Bin);         
+ or (Borrow, A_not_and_B, A_not_and_Bin, B_and_Bin); 
+ endmodule
+```
 **RTL Schematic**
+![image](https://github.com/user-attachments/assets/42f01775-ac3a-400e-ba46-5b9cc1cb88f8)
+![image](https://github.com/user-attachments/assets/47b2ccf6-5ce2-4b1b-8453-ef47e875401f)
+
 
 **Output Timing Waveform**
+![image](https://github.com/user-attachments/assets/ce0fe76e-f399-482f-8507-158bfa5847e1)
+![image](https://github.com/user-attachments/assets/d9e9abae-410f-4378-99c4-a1e68ba65a6a)
+
+
 
 **Result:**
 
